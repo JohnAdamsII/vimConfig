@@ -4,6 +4,7 @@
 "  \ V /| | | | | | | | | (__
 "   \_/ |_|_| |_| |_|_|  \___|
 "
+let mapleader =" "
 
 set nocompatible
 set number relativenumber
@@ -33,8 +34,10 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tomasiser/vim-code-dark'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 
 call vundle#end()            " required
+
 "Keybindings
 
 "switch tabs/windows with ctrl + hjkl
@@ -50,6 +53,9 @@ map <C-n> :NERDTreeToggle<CR>
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
+"Copy and paste key bindings
+vnoremap <C-c> "*y :let @+=@*<CR>
+map <C-v> "+P
 
 "bind caps to esc just for vim
 au VimEnter * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
