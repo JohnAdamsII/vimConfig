@@ -6,19 +6,6 @@
 "
 let mapleader =" "
 
-set nocompatible
-set number relativenumber
-syntax on
-set showcmd
-set splitbelow splitright "change how tabs and windows open
-filetype plugin indent on "required
-
-set wildmode=longest,list,full "turn on auto complete
-
-"remove auto commenting and annoying formatting
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
-autocmd BufWritePre * %s/\s\+$//e " auto delete excess white space
 
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -37,6 +24,24 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 
 call vundle#end()            " required
+
+
+
+set nocompatible
+filetype plugin on
+syntax on
+set encoding=utf-8
+set number relativenumber
+set showcmd
+set splitbelow splitright "change how tabs and windows open
+
+set wildmode=longest,list,full "turn on auto complete
+
+"remove auto commenting and annoying formatting
+"autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+"autocmd BufWritePre * %s/\s\+$//e " auto delete excess white space
+
 
 "Keybindings
 
@@ -63,4 +68,4 @@ au VimLeave * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
 
 "Themes
 colorscheme codedark
-let g:airline_theme = 'codedark'
+"let g:airline_theme = 'codedark'
