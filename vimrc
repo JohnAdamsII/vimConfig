@@ -1,47 +1,34 @@
-"       _
-" __   _(_)_ __ ___  _ __ ___
-" \ \ / / | '_ ` _ \| '__/ __|
-"  \ V /| | | | | | | | | (__
-"   \_/ |_|_| |_| |_|_|  \___|
-"
-let mapleader =" "
-
-
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-Plugin 'VundleVim/Vundle.vim'
+set nocompatible
+filetype off
 
 "Plugins
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tomasiser/vim-code-dark'
-Plugin 'tpope/vim-fugitive'
-Plugin 'scrooloose/nerdtree'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'tpope/vim-fugitive' 
+call vundle#end()
+filetype plugin indent on
 
-call vundle#end()            " required
+"basic settings
 
+let mapleader =" "
 
-
-set nocompatible
-filetype plugin on
-syntax on
-set encoding=utf-8
 set number relativenumber
+syntax on
 set showcmd
-set splitbelow splitright "change how tabs and windows open
-
-set wildmode=longest,list,full "turn on auto complete
-
-"remove auto commenting and annoying formatting
-"autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
-"autocmd BufWritePre * %s/\s\+$//e " auto delete excess white space
-
+set splitbelow splitright "split new windows below and to the right by default
+set wildmenu "visual autocomplete for command menu
+set showmatch "highlight matching [{()}]
+set incsearch "search as characters are entered
+set hlsearch "highlight matches
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o "Disable auto comments on newline
 
 "Keybindings
 
@@ -51,21 +38,33 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
-"open NERD tree with ctrl + n
-map <C-n> :NERDTreeToggle<CR>
+au VimEnter * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape' 
+au VimLeave * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
+"swap caps and esc keys only in vim
 
-" open fuzzy finder with ctrl + p
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
+nnoremap <leader><space> :nohlsearch<CR>
+"turn off search highlight
 
 "Copy and paste key bindings
 vnoremap <C-c> "*y :let @+=@*<CR>
 map <C-v> "+P
 
-"bind caps to esc just for vim
-au VimEnter * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
-au VimLeave * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
+"toggle NERD tree with ctrl + n
+map <C-n> :NERDTreeToggle<CR>
+
+"syntastic settings
+
+let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_python_exec = 'python3'
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 "Themes
 colorscheme codedark
-"let g:airline_theme = 'codedark'
+let g:airline_theme = 'simple'
